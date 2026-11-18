@@ -1,0 +1,23 @@
+{
+  "name": "heat-ledger",
+  "version": "1.0.0",
+  "private": true,
+  "description": "城市供热调度中心 · 检修交接账本地同步服务(变更日志 → 交接账 → HTTP 查询)",
+  "type": "module",
+  "engines": {
+    "node": ">=22.5.0"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "start": "node --disable-warning=ExperimentalWarning dist/server.js",
+    "prestart": "npm run build",
+    "demo": "node --disable-warning=ExperimentalWarning dist/demo.js",
+    "predemo": "npm run build",
+    "test": "node --disable-warning=ExperimentalWarning dist/demo.js",
+    "pretest": "npm run build"
+  },
+  "devDependencies": {
+    "@types/node": "~22.20.5",
+    "typescript": "~5.9.3"
+  }
+}
