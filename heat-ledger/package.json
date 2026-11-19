@@ -13,7 +13,9 @@
     "prestart": "npm run build",
     "demo": "node --disable-warning=ExperimentalWarning dist/demo.js",
     "predemo": "npm run build",
-    "test": "node --disable-warning=ExperimentalWarning dist/demo.js",
+    "replay-test": "node --disable-warning=ExperimentalWarning dist/replay-test.js",
+    "prereplay-test": "npm run build",
+    "test": "npm run demo && npm run replay-test",
     "pretest": "npm run build"
   },
   "devDependencies": {

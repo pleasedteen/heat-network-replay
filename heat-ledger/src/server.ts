@@ -82,13 +82,18 @@ function handle(req: http.IncomingMessage, res: Res): void {
 
   if (p === '/api/status') {
     const latest = store.latestLedger();
+    const recompute = store.recomputeStatus();
     return sendJson(res, 200, {
       service: 'heat-ledger',
       time: new Date().toISOString(),
       cursor: store.getCursor(),
       ledgerVersion: latest?.version ?? null,
-      syncIdle: sync.idle,
+      syncIdle: sync.idle && recompute === null,
       lastSync: { received: sync.lastReceived, newVersions: sync.lastVersions },
+      // 进行中的级联重算:整段换账前查询仍只读到上一份完整账(ledgerVersion 不变)
+      recompute: recompute
+        ? { runId: recompute.runId, stepsDone: recompute.stepsDone, maintenances: recompute.maintenances }
+        : null,
       source: source.describe(),
       maintenances: store.listMaintenances().map(mt => {
         const received = store.partsReceived(mt.id);

@@ -1,6 +1,7 @@
 node_modules/
 dist/
 .demo/
+.replay-test/
 *.db
 *.db-wal
 *.db-shm
